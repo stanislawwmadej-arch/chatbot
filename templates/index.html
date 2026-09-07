@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mój Chatbot AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <nav>
+            <a href="/">Zapytaj AI</a> |
+            <a href="/analiza-strona">Analizuj dane</a>
+        </nav>
+
+        <h1>Zapytaj AI</h1>
+
+        <form action="/zapytaj" method="POST">
+            <textarea
+                name="pytanie"
+                id="pytanie"
+                rows="4"
+                placeholder="Wpisz swoje pytanie..."
+            ></textarea>
+            <button type="submit">Wyślij</button>
+        </form>
+
+        {% if odpowiedz %}
+        <div class="answer-box">
+            <div id="odpowiedz" data-tekst="{{ odpowiedz }}"></div>
+            <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+            <script>
+                const el = document.getElementById("odpowiedz");
+                el.innerHTML = marked.parse(el.getAttribute("data-tekst"));
+            </script>
+        </div>
+        {% endif %}
+    </main>
+</body>
+</html>

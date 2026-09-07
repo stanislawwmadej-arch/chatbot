@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Streszczanie tekstu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <nav>
+            <a href="/">Zapytaj AI</a> |
+            <a href="/analiza-strona">Analizuj dane</a> |
+            <a href="/streszczaj-strona">Streszczaj tekst</a>
+        </nav>
+
+        <h1>Streszcz dowolny tekst</h1>
+
+        {% if blad %}
+            <p style="color: red;"><strong>{{ blad }}</strong></p>
+        {% endif %}
+
+        <form action="/streszczaj" method="POST">
+            <textarea name="tekst" rows="8" placeholder="Wklej tekst (od 50 do 8000 znaków)...">{{ oryginalny_tekst or '' }}</textarea>
+            <button type="submit">Generuj streszczenie</button>
+        </form>
+
+        {% if wynik %}
+        <div class="answer-box">
+            <div id="odpowiedz" data-tekst="{{ wynik }}"></div>
+            <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+            <script>
+                const el = document.getElementById("odpowiedz");
+                el.innerHTML = marked.parse(el.getAttribute("data-tekst"));
+            </script>
+        </div>
+        {% endif %}
+    </main>
+</body>
+</html>
