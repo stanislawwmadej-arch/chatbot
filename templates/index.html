@@ -10,7 +10,8 @@
     <main class="container">
         <nav>
             <a href="/">Zapytaj AI</a> |
-            <a href="/analiza-strona">Analizuj dane</a>
+            <a href="/analiza-strona">Analizuj dane</a> |
+            <a href="/wyloguj">Wyloguj</a>
         </nav>
 
         <h1>Zapytaj AI</h1>
@@ -21,18 +22,13 @@
                 id="pytanie"
                 rows="4"
                 placeholder="Wpisz swoje pytanie..."
-            ></textarea>
+            >{{ pytanie or '' }}</textarea>
             <button type="submit">Wyślij</button>
         </form>
 
         {% if odpowiedz %}
         <div class="answer-box">
-            <div id="odpowiedz" data-tekst="{{ odpowiedz }}"></div>
-            <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-            <script>
-                const el = document.getElementById("odpowiedz");
-                el.innerHTML = marked.parse(el.getAttribute("data-tekst"));
-            </script>
+            <p style="white-space: pre-wrap; margin: 0;">{{ odpowiedz }}</p>
         </div>
         {% endif %}
     </main>
